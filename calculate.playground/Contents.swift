@@ -3,77 +3,72 @@
 //var greeting = "Hello, playground"
 
 class Calculator {
-//    func add() -> Double {
-//        return num1 + num2
-//    }
-//    
-//    func subtract() -> Double {
-//        return num1 - num2
-//    }
-//    
-//    func multiply() -> Double {
-//        return num1 * num2
-//    }
-//    
-//    func divide() -> Double {
-//        if num2 != 0 {
-//            return num1 / num2
-//        } else {return 0}
-//    }
-//    
-//    func remain() -> Double {
-//        if num2 != 0 {
-//            return Double(Int(num1) % Int(num2))
-//        } else {return 0}
-//    }
-    
-    func calculate(operate:String) -> Double {
+    let addOper = AddOperation()
+    let subtractOper = SubstractOperation()
+    let multiplyOper = MultiplyOperation()
+    let divideOper = DivideOperation()
+    let remainOper = RemainOperation()
+
+
+    func calculate(_ operate: OperateType, _ num1: Double, _ num2: Double) -> Double {
         switch operate {
-        case "+":
-            return add.add(num1: 20, num2: 10)
-        case "-":
-            return subtract.substract(num1: 20, num2: 10)
-        case "*":
-            return multiply.multiply(num1: 20, num2: 10)
-        case "/":
-            return divide.divide(num1: 20, num2: 10)
-        case "%":
-            return remain.remain(num1: 20, num2: 10)
-        default:
-            return 0
+        case .add:
+            return addOper.add(num1, num2)
+        case .substract:
+            return subtractOper.substract(num1, num2)
+        case .multiply:
+            return multiplyOper.multiply(num1, num2)
+        case .divide:
+            return divideOper.divide(num1, num2)
+        case .remain:
+            return remainOper.remain(num1, num2)
         }
     }
 }
 
+enum OperateType{
+    case add
+    case substract
+    case multiply
+    case divide
+    case remain
+}
+
+
+/* 
+ calculate 메서드에서 변수 한번에 받는법이 궁금했는데 arguement label 추가로 해결!
+ operate를 처음에는 String으로 타입을 선언했었는데 받을 수 있는 입력값의 경우의 수가 너무 많다.
+ >> 열거형으로 타입을 제한하면 조금더 명확한 코드작성 가능
+*/
 
 class AddOperation {
-    func add(num1:Double, num2:Double) -> Double {
+    func add(_ num1:Double, _ num2:Double) -> Double {
             return num1 + num2
         }
 }
 
 class SubstractOperation {
-    func substract(num1: Double, num2: Double) -> Double {
+    func substract(_ num1: Double, _ num2: Double) -> Double {
             return num1 - num2
         }
 }
 
 class MultiplyOperation {
-        func multiply(num1: Double, num2: Double) -> Double {
+        func multiply(_ num1: Double, _ num2: Double) -> Double {
            return num1 * num2
         }
 }
 
 class DivideOperation {
-        func divide(num1: Double, num2: Double) -> Double {
+        func divide(_ num1: Double, _ num2: Double) -> Double {
             if num2 != 0 {
-                return num1 / num2
+                return Double(Int(num1) / Int(num2))
             } else {return 0}
         }
 }
 
 class RemainOperation {
-        func remain(num1: Double, num2: Double) -> Double {
+        func remain(_ num1: Double, _ num2: Double) -> Double {
             if num2 != 0 {
                 return Double(Int(num1) % Int(num2))
             } else {return 0}
@@ -81,18 +76,14 @@ class RemainOperation {
 }
 
 
-let add = AddOperation()
-let subtract = SubstractOperation()
-let multiply = MultiplyOperation()
-let divide = DivideOperation()
-let remain = RemainOperation()
+
 
 let calculateResult = Calculator()
-let addResult = calculateResult.calculate(operate: "+")
-let subtractResult = calculateResult.calculate(operate: "-")
-let multiplyResult = calculateResult.calculate(operate: "*")
-let divideResult = calculateResult.calculate(operate: "/")
-let remainResult = calculateResult.calculate(operate: "%")
+let addResult = calculateResult.calculate(.add, 4, 2)
+let subtractResult = calculateResult.calculate(.substract, 4, 2)
+let multiplyResult = calculateResult.calculate(.multiply, 5, 3)
+let divideResult = calculateResult.calculate(.divide, 7, 2)
+let remainResult = calculateResult.calculate(.remain, 9, 8)
 
 
 print("addResult : \(addResult)")
